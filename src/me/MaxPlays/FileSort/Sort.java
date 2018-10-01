@@ -1,10 +1,8 @@
 package me.MaxPlays.FileSort;
 
 import java.io.File;
-import java.util.Arrays;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Scanner;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /**
  Copyright 2018 Maximilian Negedly
@@ -25,10 +23,10 @@ public class Sort {
 
     private String d;
     private List t;
-    private boolean r;
+    private boolean r, m, o;
     private long total = 0;
 
-    public Sort(String d, String t, boolean r){
+    public Sort(String d, String t, boolean r, boolean m, boolean o){
         this.d = d;
         if(t.length() > 0){
             this.t = Arrays.asList(t.trim().toLowerCase().split(","));
@@ -36,6 +34,8 @@ public class Sort {
             this.t = null;
         }
         this.r = r;
+        this.m = m;
+        this.o = o;
         File file = new File(d);
         if(file.exists()){
             Scanner sc = new Scanner(System.in);
@@ -48,7 +48,11 @@ public class Sort {
                 }
             }
             System.out.println("Sorting...");
-            sort(d);
+            if(m){
+                move(file);
+            }else{
+                sort(d);
+            }
             System.out.println("Sorted " + total + " files");
         }else{
             System.out.println("ERROR: The specified directory does not exist");
@@ -72,7 +76,33 @@ public class Sort {
                     }
                     f.renameTo(new File(f.getParentFile().getAbsolutePath() + "//" + l + "." + f.getName().split("\\.")[f.getName().split("\\.").length - 1]));
                     l++;
+                    if(!m)
+                        total++;
+                }
+            }
+        }
+    }
+    public void move(File file){
+        if(file.listFiles() != null){
+            for(File f: file.listFiles()){
+                if(f.isDirectory()){
+                    if(r){
+                        move(f);
+                    }
+                }else{
+                    if(t != null && !t.contains(f.getName().split("\\.")[f.getName().split("\\.").length - 1].toLowerCase())){
+                        continue;
+                    }
+                    Date d = new Date(f.lastModified());
+                    String name = new SimpleDateFormat("yyyyMMdd EEEE").format(d);
+                    File t = new File(f.getParentFile().getAbsolutePath() + "//" + name + "//" + f.getName());
+                    if(!new File(f.getParentFile().getAbsolutePath() + "//" + name).exists()){
+                        new File(f.getParentFile().getAbsolutePath() + "//" + name).mkdirs();
+                    }
+                    f.renameTo(t);
                     total++;
+                    if(!o)
+                        sort(t.getParentFile().getAbsolutePath());
                 }
             }
         }

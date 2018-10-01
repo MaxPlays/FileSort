@@ -17,14 +17,14 @@ package me.MaxPlays.FileSort;
  */
 public class FileSort {
 
-    public static final String version = "1.0.0";
+    public static final String version = "1.1.0";
 
     public static void main(String[] args){
         if(args.length == 0 || (args.length == 1 && args[0].equalsIgnoreCase("-h"))){
             printHelp();
         }else{
             String d = "", t = "";
-            boolean r = false;
+            boolean r = false, m = false, o = false;
             for(int i = 0; i < args.length; i++){
                 String s = args[i];
                 if(s.startsWith("-")){
@@ -44,13 +44,17 @@ public class FileSort {
                         }
                     }else if(s.equalsIgnoreCase("-r")){
                         r = true;
+                    }else if(s.equalsIgnoreCase("-m")){
+                        m = true;
+                    }else if(s.equalsIgnoreCase("-o")){
+                        o = true;
                     }else{
                         printHelp();
                         return;
                     }
                 }
             }
-            Sort s = new Sort(d, t, r);
+            Sort s = new Sort(d, t, r, m, o);
         }
     }
 
@@ -61,6 +65,8 @@ public class FileSort {
         System.out.println("\t-d DIRECTORY\tPath to the directory of the files");
         System.out.println("\t-t TYPE     \tList of file types to sort (comma separated)");
         System.out.println("\t-r          \tSort files in sub-directories");
+        System.out.println("\t-m          \tMove the files into named folders");
+        System.out.println("\t-o          \tOnly move the files into named folders but keep their names");
         System.out.println("\t-h          \tPrint this help screen");
         System.out.println("\n\nExample usage\n");
         System.out.println("\tjava -jar FileSort.jar -d Photos -t png,jpg -r");
