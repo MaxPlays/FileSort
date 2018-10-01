@@ -15,5 +15,7 @@ List of arguments
         -d DIRECTORY    Path to the directory of the files
         -t TYPE         List of file types to sort (comma separated)
         -r              Sort files in sub-directories
+        -m              Move the files into named folders
+        -o              Only move the files into named folders but keep their names
         -h              Print this help screen
 ```
