@@ -17,12 +17,15 @@ package me.MaxPlays.FileSort;
  */
 public class FileSort {
 
-    public static final String version = "1.1.0";
+    public static final String version = "1.2.0";
 
     public static void main(String[] args){
-        if(args.length == 0 || (args.length == 1 && args[0].equalsIgnoreCase("-h"))){
+        if(args.length == 0){
+            new GUI();
+            return;
+        }else if(args.length == 1 && args[0].equalsIgnoreCase("-h")) {
             printHelp();
-        }else{
+        }else {
             String d = "", t = "";
             boolean r = false, m = false, o = false;
             for(int i = 0; i < args.length; i++){
@@ -54,7 +57,7 @@ public class FileSort {
                     }
                 }
             }
-            Sort s = new Sort(d, t, r, m, o);
+            Sort s = new Sort(d, t, r, m, o, false);
         }
     }
 

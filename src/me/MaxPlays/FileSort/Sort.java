@@ -26,7 +26,7 @@ public class Sort {
     private boolean r, m, o;
     private long total = 0;
 
-    public Sort(String d, String t, boolean r, boolean m, boolean o){
+    public Sort(String d, String t, boolean r, boolean m, boolean o, boolean g){
         this.d = d;
         if(t.length() > 0){
             this.t = Arrays.asList(t.trim().toLowerCase().split(","));
@@ -38,13 +38,15 @@ public class Sort {
         this.o = o;
         File file = new File(d);
         if(file.exists()){
-            Scanner sc = new Scanner(System.in);
-            System.out.print("Do you want to sort the files in the directory " + file.getAbsolutePath() + " ? [Y/n]: ");
-            if(sc.hasNextLine()){
-                String s = sc.nextLine();
-                if(!s.equalsIgnoreCase("y")){
-                    System.out.println("Cancelling...");
-                    return;
+            if(!g){
+                Scanner sc = new Scanner(System.in);
+                System.out.print("Do you want to sort the files in the directory " + file.getAbsolutePath() + " ? [Y/n]: ");
+                if(sc.hasNextLine()){
+                    String s = sc.nextLine();
+                    if(!s.equalsIgnoreCase("y")){
+                        System.out.println("Cancelling...");
+                        return;
+                    }
                 }
             }
             System.out.println("Sorting...");
