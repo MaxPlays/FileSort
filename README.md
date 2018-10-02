@@ -4,7 +4,11 @@ Java tool to sort files by their modification date
 In order to run this tool, you need to install the [JRE](https://www.java.com/en/download/). You can download the latest version of the tool [here](https://github.com/MaxPlays/FileSort/releases/latest).
 
 ## Usage ##
-To run the program, use:
+To run the program in console, use:
+```
+java -jar FileSort.jar -h
+```
+To run the program in GUI mode, use:
 ```
 java -jar FileSort.jar
 ```
