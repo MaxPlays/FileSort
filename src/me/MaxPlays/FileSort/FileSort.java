@@ -17,17 +17,16 @@ package me.MaxPlays.FileSort;
  */
 public class FileSort {
 
-    public static final String version = "1.2.0";
+    public static final String version = "1.3.0";
 
     public static void main(String[] args){
         if(args.length == 0){
             new GUI();
-            return;
         }else if(args.length == 1 && args[0].equalsIgnoreCase("-h")) {
             printHelp();
         }else {
-            String d = "", t = "";
-            boolean r = false, m = false, o = false;
+            String d = "", t = "", f = "[x]";
+            boolean r = false, m = false, o = false, l = false;
             for(int i = 0; i < args.length; i++){
                 String s = args[i];
                 if(s.startsWith("-")){
@@ -40,7 +39,14 @@ public class FileSort {
                         }
                     }else if(s.equalsIgnoreCase("-t") && (i + 1) < args.length){
                         if(!args[i + 1].startsWith("-")){
-                            t = args[i + 1];
+                            f = args[i + 1];
+                        }else{
+                            printHelp();
+                            return;
+                        }
+                    }else if(s.equalsIgnoreCase("-f") && (i + 1) < args.length){
+                        if(!args[i + 1].startsWith("-")){
+                            f = args[i + 1];
                         }else{
                             printHelp();
                             return;
@@ -51,13 +57,15 @@ public class FileSort {
                         m = true;
                     }else if(s.equalsIgnoreCase("-o")){
                         o = true;
+                    }else if(s.equalsIgnoreCase("-l")){
+                        l = true;
                     }else{
                         printHelp();
                         return;
                     }
                 }
             }
-            Sort s = new Sort(d, t, r, m, o, false);
+            Sort s = new Sort(d, t, r, m, o, f, l, false);
         }
     }
 
@@ -70,6 +78,8 @@ public class FileSort {
         System.out.println("\t-r          \tSort files in sub-directories");
         System.out.println("\t-m          \tMove the files into named folders");
         System.out.println("\t-o          \tOnly move the files into named folders but keep their names");
+        System.out.println("\t-f FORMAT   \tChange the name format of sorted files (Use [x] as a placeholder for the ascending number)");
+        System.out.println("\t-l          \tFill the spaces before numbers with zeroes");
         System.out.println("\t-h          \tPrint this help screen");
         System.out.println("\n\nExample usage\n");
         System.out.println("\tjava -jar FileSort.jar -d Photos -t png,jpg -r");

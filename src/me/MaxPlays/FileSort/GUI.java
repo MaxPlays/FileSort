@@ -34,6 +34,8 @@ public class GUI {
     private JCheckBox o;
     private JPanel panel;
     private JButton sort;
+    private JCheckBox l;
+    private JTextField f;
     private DefaultListModel model = new DefaultListModel();
 
     public GUI() {
@@ -128,7 +130,7 @@ public class GUI {
                     if(JOptionPane.showConfirmDialog(panel, "Do you want to sort the files in the directory " + directory.getText() + " ?") == 0) {
                         System.out.println(sb.toString());
                         sort.setEnabled(false);
-                        new Sort(directory.getText(), sb.toString(), r.isSelected(), m.isSelected(), o.isSelected(), true);
+                        new Sort(directory.getText(), sb.toString(), r.isSelected(), m.isSelected(), o.isSelected(), f.getText(), l.isSelected(), true);
                         sort.setEnabled(true);
                         JOptionPane.showMessageDialog(panel, "Sorted");
                     }

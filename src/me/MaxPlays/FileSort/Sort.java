@@ -21,12 +21,12 @@ import java.util.*;
  */
 public class Sort {
 
-    private String d;
+    private String d, f;
     private List t;
-    private boolean r, m, o;
+    private boolean r, m, o, l;
     private long total = 0;
 
-    public Sort(String d, String t, boolean r, boolean m, boolean o, boolean g){
+    public Sort(String d, String t, boolean r, boolean m, boolean o, String f, boolean l, boolean g){
         this.d = d;
         if(t.length() > 0){
             this.t = Arrays.asList(t.trim().toLowerCase().split(","));
@@ -36,6 +36,10 @@ public class Sort {
         this.r = r;
         this.m = m;
         this.o = o;
+        this.f = f;
+        if(!this.f.contains("[x]"))
+            this.f = this.f + "[x]";
+        this.l = l;
         File file = new File(d);
         if(file.exists()){
             if(!g){
@@ -76,7 +80,12 @@ public class Sort {
                     if(t != null && !t.contains(f.getName().split("\\.")[f.getName().split("\\.").length - 1].toLowerCase())){
                         continue;
                     }
-                    f.renameTo(new File(f.getParentFile().getAbsolutePath() + "//" + l + "." + f.getName().split("\\.")[f.getName().split("\\.").length - 1]));
+                    if(!this.l) {
+                        f.renameTo(new File(f.getParentFile().getAbsolutePath() + "//" + (this.f.replace("[x]", l + "")) + "." + f.getName().split("\\.")[f.getName().split("\\.").length - 1]));
+                    }else{
+                        String name = this.f.replace("[x]", String.format("%0" + String.valueOf(files.length).length() + "d", l));
+                        f.renameTo(new File(f.getParentFile().getAbsolutePath() + "//" + name + "." + f.getName().split("\\.")[f.getName().split("\\.").length - 1]));
+                    }
                     l++;
                     if(!m)
                         total++;
