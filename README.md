@@ -21,5 +21,7 @@ List of arguments
         -r              Sort files in sub-directories
         -m              Move the files into named folders
         -o              Only move the files into named folders but keep their names
+        -f FORMAT       Change the name format of sorted files (Use [x] as a placeholder for the ascending number)
+        -l              Fill the spaces before numbers with zeroes
         -h              Print this help screen
 ```
